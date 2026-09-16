@@ -1,8 +1,7 @@
-// lib/models/product.dart
 
-// ============================================================================
-// MODEL UTAMA (Langkah 5 & Tugas Mandiri Soal 1)
-// ============================================================================
+
+
+//(Langkah 5 & Tugas Mandiri Soal 1)
 
 class Product {
   final int id;
@@ -48,9 +47,8 @@ class Product {
   }
 }
 
-// ============================================================================
+
 // INHERITANCE (Langkah 5)
-// ============================================================================
 
 class DiscountedProduct extends Product {
   final double discountPercent;
@@ -79,24 +77,21 @@ class DiscountedProduct extends Product {
   }
 }
 
-// ============================================================================
-// FUNCTIONS (Langkah 4 & Tugas Mandiri Soal 3)
-// ============================================================================
 
-// Langkah 4: Positional parameter
+// FUNCTIONS (Langkah 4 & Tugas Mandiri Soal 3)
+
+
 double hitungDiskonBiasa(double harga, double persen) {
   return harga - (harga * (persen / 100));
 }
 
-// Langkah 4: Named parameter & default value
 double hitungHargaSetelahDiskon(double harga, {double persenDiskon = 0.0}) {
   return harga - (harga * (persenDiskon / 100));
 }
 
-// Langkah 4: Arrow function format mata uang
+
 String formatRupiah(double nilai) => 'Rp${nilai.toStringAsFixed(0)}';
 
-// Tugas Mandiri Soal 3: Menghitung total belanja dari keranjang produk
 double hitungTotalBelanja(List<Product> keranjang) {
   double total = 0.0;
   for (var produk in keranjang) {
@@ -105,14 +100,10 @@ double hitungTotalBelanja(List<Product> keranjang) {
   return total;
 }
 
-// ============================================================================
-// EKSEKUSI UTAMA (Langkah 1 s.d. 5 + Tugas Mandiri)
-// ============================================================================
+//(Langkah 1 s.d. 5 + Tugas Mandiri)
 
 void main() {
-  print('==================================================');
   print('     PRAKTIKUM DASAR DART - TOKOKITA   ');
-  print('==================================================\n');
 
   // --- LANGKAH 1: Variabel & Tipe Data ---
   print('LANGKAH 1: Variabel & Tipe Data');
@@ -251,9 +242,8 @@ void main() {
   p3.printProductInfo();
 
 
-  print('\n==================================================');
   print('             HASIL TUGAS MANDIRI                  ');
-  print('==================================================');
+
 
   // TUGAS MANDIRI 1: Method getStatusStok()
   print('\n[TUGAS MANDIRI 1] Pengujian Method getStatusStok():');
@@ -376,9 +366,9 @@ void main() {
   // --- TUGAS MANDIRI 3: Function hitungTotalBelanja() ---
   print('\n[TUGAS MANDIRI 3] Simulasi Function hitungTotalBelanja():');
   List<Product> keranjang = [
-    dummyProducts[0], // Kemeja Flanel (150.000)
-    dummyProducts[2], // Smartwatch Sport Fit (499.000)
-    dummyProducts[7], // Tas Ransel Laptop (275.000)
+    dummyProducts[0],
+    dummyProducts[2],
+    dummyProducts[7], 
   ];
 
   print('Daftar Produk di Keranjang (${keranjang.length} item):');
