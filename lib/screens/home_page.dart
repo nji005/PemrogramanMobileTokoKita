@@ -16,7 +16,6 @@ class HomePage extends StatelessWidget {
       stock: 25,
       description: 'Bahan katun adem.',
     ),
-
     Product(
       id: 2,
       name: 'Wireless Headset BT',
@@ -26,7 +25,6 @@ class HomePage extends StatelessWidget {
       stock: 12,
       description: 'Baterai tahan hingga 24 jam.',
     ),
-
     DiscountedProduct(
       id: 3,
       name: 'Smartwatch Sport Fit',
@@ -37,7 +35,6 @@ class HomePage extends StatelessWidget {
       description: 'Anti-air dan sensor detak jantung.',
       discountPercent: 20,
     ),
-
     Product(
       id: 4,
       name: 'Kaos Polos Katun',
@@ -47,7 +44,6 @@ class HomePage extends StatelessWidget {
       stock: 0,
       description: null,
     ),
-
     Product(
       id: 5,
       name: 'Mouse Wireless Silent',
@@ -57,7 +53,6 @@ class HomePage extends StatelessWidget {
       stock: 18,
       description: 'Sensor presisi tinggi.',
     ),
-
     Product(
       id: 6,
       name: 'Kopi Arabika Gayo 250g',
@@ -67,7 +62,6 @@ class HomePage extends StatelessWidget {
       stock: 30,
       description: 'Aroma sangrai harum.',
     ),
-
     Product(
       id: 7,
       name: 'Keripik Tempe Renyah',
@@ -77,7 +71,6 @@ class HomePage extends StatelessWidget {
       stock: 5,
       description: null,
     ),
-
     DiscountedProduct(
       id: 8,
       name: 'Tas Ransel Laptop',
@@ -88,7 +81,6 @@ class HomePage extends StatelessWidget {
       description: 'Bahan tahan air dan muat laptop 15 inci.',
       discountPercent: 15,
     ),
-
     Product(
       id: 9,
       name: 'Celana Jeans Slim Fit',
@@ -98,7 +90,6 @@ class HomePage extends StatelessWidget {
       stock: 14,
       description: 'Celana jeans model slim fit.',
     ),
-
     Product(
       id: 10,
       name: 'Keyboard Mechanical',
@@ -108,7 +99,6 @@ class HomePage extends StatelessWidget {
       stock: 8,
       description: 'Keyboard mechanical untuk bekerja dan gaming.',
     ),
-
     DiscountedProduct(
       id: 11,
       name: 'Sepatu Sneakers Casual',
@@ -119,7 +109,6 @@ class HomePage extends StatelessWidget {
       description: 'Sneakers nyaman untuk aktivitas sehari-hari.',
       discountPercent: 25,
     ),
-
     Product(
       id: 12,
       name: 'Teh Hijau Premium',
@@ -129,7 +118,6 @@ class HomePage extends StatelessWidget {
       stock: 20,
       description: 'Teh hijau dengan aroma yang segar.',
     ),
-
     Product(
       id: 13,
       name: 'Powerbank 20000mAh',
@@ -139,7 +127,6 @@ class HomePage extends StatelessWidget {
       stock: 10,
       description: 'Powerbank dengan kapasitas besar.',
     ),
-
     Product(
       id: 14,
       name: 'Jaket Hoodie Basic',
@@ -149,7 +136,6 @@ class HomePage extends StatelessWidget {
       stock: 7,
       description: 'Hoodie nyaman untuk aktivitas sehari-hari.',
     ),
-
     Product(
       id: 15,
       name: 'Biskuit Cokelat',
@@ -160,6 +146,28 @@ class HomePage extends StatelessWidget {
       description: 'Biskuit dengan rasa cokelat.',
     ),
   ];
+
+  // Langkah 2 & 3: navigasi named route, kirim Product lewat arguments,
+  // lalu terima nilai kembalian dari Navigator.pop(context, jumlah).
+  Future<void> _bukaDetail(BuildContext context, Product product) async {
+    final hasil = await Navigator.pushNamed(
+      context,
+      '/detail',
+      arguments: product,
+    );
+
+    // Pastikan widget masih aktif sebelum memakai context setelah await
+    if (!context.mounted) return;
+
+    // Jika pengguna menekan back biasa, hasil == null → tidak ada notifikasi
+    if (hasil is int) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('$hasil × ${product.name} ditambahkan ke keranjang.'),
+        ),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -202,7 +210,6 @@ class HomePage extends StatelessWidget {
           ],
         ),
       ),
-
       body: products.isEmpty
           ? const Center(
         child: Text('Belum ada produk.'),
@@ -219,6 +226,7 @@ class HomePage extends StatelessWidget {
           return ProductCard(
             key: ValueKey(product.id),
             product: product,
+            onTap: () => _bukaDetail(context, product),
           );
         },
       ),
